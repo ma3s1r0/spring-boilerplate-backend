@@ -1,0 +1,50 @@
+# Base configuration
+
+server: 
+  port: 8080
+
+logbook: 
+  include: 
+    - /api/**
+  exclude: 
+    - /actuator/**
+  write: 
+    level: INFO
+  max-body-size: 20
+  format: 
+    style: http
+  obfuscate: 
+    headers: 
+      - token
+    parameters: 
+      - email
+      - password
+
+# Middleware configuration
+middleware: 
+
+  requestId: 
+    header: 
+      name: X-Request-Id
+
+---
+
+# Default configuration
+
+spring:
+  profiles: default
+
+# Logging
+logging: 
+  config: classpath:logback-spring.xml
+
+---
+
+# Production configuration
+
+spring:
+  profiles: dev
+
+logbook: 
+  format: 
+    style: json
